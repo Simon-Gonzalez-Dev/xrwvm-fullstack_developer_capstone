@@ -1,0 +1,122 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+</head>
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+    <div class="container-fluid">
+      <h2 style="padding-right: 5%;">Dealerships</h2>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" style="font-size: larger;" href="/contact">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
+    <div class="banner" name="contact-header">
+      <h1>Contact Us</h1>
+      <p>Get in touch with us for any questions about our vehicles or to schedule a test drive.</p>
+    </div>
+    
+    <div style="display: flex; flex-direction: row; margin: auto; gap: 20px;">
+      <!-- Contact Information Card -->
+      <div class="card" style="width: 45%;">
+        <div class="card-body">
+          <h3 class="title">Contact Information</h3>
+          <div class="details">
+            <p><strong>Address:</strong><br>
+            123 Car Street<br>
+            Auto City, AC 12345</p>
+            
+            <p><strong>Phone:</strong><br>
+            (555) 123-4567</p>
+            
+            <p><strong>Email:</strong><br>
+            info@bestcarsdealership.com</p>
+            
+            <p><strong>Hours:</strong><br>
+            Monday - Friday: 9:00 AM - 8:00 PM<br>
+            Saturday: 9:00 AM - 6:00 PM<br>
+            Sunday: 12:00 PM - 5:00 PM</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form Card -->
+      <div class="card" style="width: 45%;">
+        <div class="card-body">
+          <h3 class="title">Send us a Message</h3>
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Your full name" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="your.email@example.com" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="tel" class="form-control" id="phone" placeholder="(555) 123-4567">
+            </div>
+            
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject</label>
+              <select class="form-select" id="subject" required>
+                <option value="">Choose a topic</option>
+                <option value="general">General Inquiry</option>
+                <option value="test-drive">Schedule Test Drive</option>
+                <option value="pricing">Pricing Information</option>
+                <option value="service">Service & Maintenance</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="4" placeholder="Tell us how we can help you..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="background-color: rgb(97, 64, 128); border-color: rgb(97, 64, 128);">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Map or Additional Info Section -->
+    <div class="card" style="width: 90%; margin: auto; margin-top: 20px;">
+      <div class="card-body">
+        <h3 class="title">Visit Our Dealership</h3>
+        <div class="details">
+          <p>We're conveniently located in the heart of Auto City, just off the main highway. 
+          Free parking available for all customers. Come see our showroom and take a test drive today!</p>
+          <div style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+            <p style="margin: 0; color: rgb(97, 64, 128); font-weight: bold;">
+               Free Test Drives Available <br>
+               Easy to Find Location <br>
+               Free Customer Parking 
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>
