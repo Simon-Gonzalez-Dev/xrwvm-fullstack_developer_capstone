@@ -61,8 +61,16 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 
 // Express route to fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
+  console.log('Fetching all dealerships');
   try {
+    // Check if database is connected
+    if (mongoose.connection.readyState !== 1) {
+      console.error('Database not connected. Ready state:', mongoose.connection.readyState);
+      return res.status(500).json({ error: 'Database not connected' });
+    }
+    
     const documents = await Dealerships.find();
+    console.log(`Found ${documents.length} total dealerships`);
     res.json(documents);
   } catch (error) {
     console.error('Error fetching dealerships:', error);
@@ -72,8 +80,22 @@ app.get('/fetchDealers', async (req, res) => {
 
 // Express route to fetch Dealers by a particular state (MUST come before /:id)
 app.get('/fetchDealers/state/:state', async (req, res) => {
+  console.log(`Fetching dealerships by state: ${req.params.state}`);
   try {
+    // Check if database is connected
+    if (mongoose.connection.readyState !== 1) {
+      console.error('Database not connected. Ready state:', mongoose.connection.readyState);
+      return res.status(500).json({ error: 'Database not connected' });
+    }
+    
+    // Check if Dealerships model exists
+    if (!Dealerships) {
+      console.error('Dealerships model not found');
+      return res.status(500).json({ error: 'Dealerships model not found' });
+    }
+    
     const documents = await Dealerships.find({ state: req.params.state });
+    console.log(`Found ${documents.length} dealerships for state: ${req.params.state}`);
     res.json(documents);
   } catch (error) {
     console.error('Error fetching dealerships by state:', error);

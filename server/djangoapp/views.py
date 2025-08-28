@@ -91,17 +91,23 @@ def registration(request):
 # def get_dealerships(request):
 # ...
 def get_dealerships(request, state="All"):
+    print(f"get_dealerships called with state: {state}")
+    
     if(state == "All"):
         endpoint = "/fetchDealers"
     else:
         # For state filtering, always use the state endpoint
         endpoint = "/fetchDealers/state/"+state
     
-    print(f"get_dealerships called with state: {state}, endpoint: {endpoint}")
+    print(f"Calling endpoint: {endpoint}")
     dealerships = get_request(endpoint)
+    print(f"Dealerships response: {dealerships}")
     
     if dealerships is None:
+        print("Dealerships is None, returning 500 error")
         return JsonResponse({"status":500,"message":"Error fetching dealerships"})
+    
+    print(f"Returning success with {len(dealerships) if isinstance(dealerships, list) else 'non-list'} dealerships")
     return JsonResponse({"status":200,"dealers":dealerships})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
