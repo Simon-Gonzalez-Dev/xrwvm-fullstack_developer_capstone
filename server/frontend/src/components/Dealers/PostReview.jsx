@@ -48,41 +48,55 @@ const PostReview = () => {
     });
 
     console.log(jsoninput);
-    const res = await fetch(review_url, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: jsoninput,
-  });
+    try {
+      const res = await fetch(review_url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: jsoninput,
+      });
 
-  const json = await res.json();
-  if (json.status === 200) {
-      window.location.href = window.location.origin+"/dealer/"+id;
-  }
-
+      const json = await res.json();
+      if (json.status === 200) {
+          window.location.href = window.location.origin+"/dealer/"+id;
+      } else {
+          alert("Error posting review: " + (json.message || "Unknown error"));
+      }
+    } catch (error) {
+      console.error('Error posting review:', error);
+      alert("Error posting review. Please try again.");
+    }
   }
   const get_dealer = async ()=>{
-    const res = await fetch(dealer_url, {
-      method: "GET"
-    });
-    const retobj = await res.json();
-    
-    if(retobj.status === 200) {
-      let dealerobjs = Array.from(retobj.dealer)
-      if(dealerobjs.length > 0)
-        setDealer(dealerobjs[0])
+    try {
+      const res = await fetch(dealer_url, {
+        method: "GET"
+      });
+      const retobj = await res.json();
+      
+      if(retobj.status === 200) {
+        setDealer(retobj.dealer)
+      } else {
+        console.error('Error fetching dealer:', retobj.message);
+      }
+    } catch (error) {
+      console.error('Error fetching dealer:', error);
     }
   }
 
   const get_cars = async ()=>{
-    const res = await fetch(carmodels_url, {
-      method: "GET"
-    });
-    const retobj = await res.json();
-    
-    let carmodelsarr = Array.from(retobj.CarModels)
-    setCarmodels(carmodelsarr)
+    try {
+      const res = await fetch(carmodels_url, {
+        method: "GET"
+      });
+      const retobj = await res.json();
+      
+      let carmodelsarr = Array.from(retobj.CarModels)
+      setCarmodels(carmodelsarr)
+    } catch (error) {
+      console.error('Error fetching car models:', error);
+    }
   }
   useEffect(() => {
     get_dealer();
@@ -103,8 +117,8 @@ const PostReview = () => {
       Car Make 
       <select name="cars" id="cars" onChange={(e) => setModel(e.target.value)}>
       <option value="" selected disabled hidden>Choose Car Make and Model</option>
-      {carmodels.map(carmodel => (
-          <option value={carmodel.CarMake+" "+carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
+      {carmodels.map((carmodel, index) => (
+          <option key={index} value={carmodel.CarMake+" "+carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
       ))}
       </select>        
       </div >
