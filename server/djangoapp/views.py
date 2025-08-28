@@ -94,7 +94,12 @@ def get_dealerships(request, state="All"):
     if(state == "All"):
         endpoint = "/fetchDealers"
     else:
-        endpoint = "/fetchDealers/state/"+state
+        # Check if state is a number (dealer ID) or string (state name)
+        try:
+            dealer_id = int(state)
+            endpoint = "/fetchDealers/"+str(dealer_id)
+        except ValueError:
+            endpoint = "/fetchDealers/state/"+state
     dealerships = get_request(endpoint)
     if dealerships is None:
         return JsonResponse({"status":500,"message":"Error fetching dealerships"})

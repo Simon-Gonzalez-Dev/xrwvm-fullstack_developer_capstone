@@ -81,7 +81,22 @@ app.get('/fetchDealers/state/:state', async (req, res) => {
   }
 });
 
-// Express route to fetch dealer by a particular id
+// Express route to fetch dealer by ID under fetchDealers path
+app.get('/fetchDealers/:id', async (req, res) => {
+  try {
+    const document = await Dealerships.findOne({ id: parseInt(req.params.id) });
+    if (document) {
+      res.json(document);
+    } else {
+      res.status(404).json({ error: 'Dealership not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching dealership by id:', error);
+    res.status(500).json({ error: 'Error fetching dealership by id' });
+  }
+});
+
+// Express route to fetch dealer by a particular id (alternative path)
 app.get('/fetchDealer/:id', async (req, res) => {
   try {
     const document = await Dealerships.findOne({ id: req.params.id });
