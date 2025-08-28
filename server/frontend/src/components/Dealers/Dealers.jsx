@@ -7,7 +7,7 @@ import review_icon from "../assets/reviewicon.png"
 const Dealers = () => {
   const [dealersList, setDealersList] = useState([]);
   // let [state, setState] = useState("")
-  let [states, setStates] = useState([])
+  const [states, setStates] = useState([])
 
   // let root_url = window.location.origin
   let dealer_url ="/djangoapp/get_dealers";
@@ -15,18 +15,27 @@ const Dealers = () => {
   let dealer_url_by_state = "/djangoapp/get_dealers/";
  
   const filterDealers = async (state) => {
+    console.log('filterDealers called with state:', state);
+    
     if (state === "All") {
+      console.log('Showing all dealers');
       get_dealers();
       return;
     }
     
     try {
-      const res = await fetch(dealer_url_by_state + state, {
+      const url = dealer_url_by_state + state;
+      console.log('Fetching from URL:', url);
+      
+      const res = await fetch(url, {
         method: "GET"
       });
       const retobj = await res.json();
+      console.log('Response:', retobj);
+      
       if(retobj.status === 200) {
         let state_dealers = Array.from(retobj.dealers)
+        console.log('Setting dealers list:', state_dealers);
         setDealersList(state_dealers)
       } else {
         console.error('Error filtering dealers:', retobj.message);

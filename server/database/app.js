@@ -70,7 +70,7 @@ app.get('/fetchDealers', async (req, res) => {
   }
 });
 
-// Express route to fetch Dealers by a particular state
+// Express route to fetch Dealers by a particular state (MUST come before /:id)
 app.get('/fetchDealers/state/:state', async (req, res) => {
   try {
     const documents = await Dealerships.find({ state: req.params.state });
@@ -81,7 +81,7 @@ app.get('/fetchDealers/state/:state', async (req, res) => {
   }
 });
 
-// Express route to fetch dealer by ID under fetchDealers path
+// Express route to fetch dealer by ID under fetchDealers path (MUST come after /state/:state)
 app.get('/fetchDealers/:id', async (req, res) => {
   try {
     const document = await Dealerships.findOne({ id: parseInt(req.params.id) });
