@@ -58,8 +58,14 @@ const Dealers = () => {
           states.push(dealer.state)
         });
 
-        setStates(Array.from(new Set(states)))
+        const uniqueStates = Array.from(new Set(states));
+        console.log('Available states:', uniqueStates);
+        console.log('All dealers:', all_dealers);
+        
+        setStates(uniqueStates)
         setDealersList(all_dealers)
+        
+        console.log('States state after setStates:', uniqueStates);
       } else {
         console.error('Error fetching dealers:', retobj.message);
       }
@@ -68,11 +74,16 @@ const Dealers = () => {
     }
   }
   useEffect(() => {
+    console.log('Dealers component mounted, fetching dealers...');
     get_dealers();
   },[]);  
 
 
 let isLoggedIn = sessionStorage.getItem("username") != null ? true : false;
+
+console.log('Rendering Dealers component with states:', states);
+console.log('Rendering Dealers component with dealersList:', dealersList);
+
 return(
   <div>
       <Header/>
@@ -86,7 +97,15 @@ return(
           <th>Address</th>
           <th>Zip</th>
           <th>
-          <select name="state" id="state" onChange={(e) => filterDealers(e.target.value)}>
+          <select 
+            name="state" 
+            id="state" 
+            onChange={(e) => {
+              console.log('Dropdown changed! Value:', e.target.value);
+              filterDealers(e.target.value);
+            }}
+            onClick={(e) => console.log('Dropdown clicked!')}
+          >
           <option value="" disabled>State</option>
           <option value="All">All States</option>
           {states.map((state, index) => (
